@@ -1,22 +1,27 @@
 {
   "name": "instagram",
-  "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "version": "1.0.0",
+  "private": "false",
+  "description": "Instagram plugin for Strapi headless CMS",
   "strapi": {
     "name": "instagram",
-    "description": "Description of Instagram plugin",
+    "description": "Instagram plugin for Strapi headless CMS",
     "kind": "plugin",
     "displayName": "Instagram"
   },
-  "dependencies": {
+  "peerDependencies": {
+    "@strapi/strapi": ">=4.3.8"
   },
-  
   "author": {
-    "name": "A Strapi developer"
+    "name": "Peter Kepes - webvibe.io",
+      "email": "dev@webvibe.io",
+      "url": "https://webvibe.io"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Peter Kepes - webvibe.io",
+      "email": "dev@webvibe.io",
+      "url": "https://webvibe.io"
     }
   ],
   "engines": {
