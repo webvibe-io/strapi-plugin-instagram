@@ -28,6 +28,7 @@ const Settings = () => {
   const [isDevAlertShow, setDevAlertShow] = useState(true);
   const [instagram_app_id, setInstagramAppId] = useState();
   const [instagram_app_secret, setInstagramAppSecret] = useState();
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     checkAuthResponse();
@@ -82,9 +83,11 @@ const Settings = () => {
   }, [settings]);
 
   const handleImageDownload = async () => {
+    setIsDownloading(true);
     instagramBasicApiRequest.downloadImages().then((res) => {
       console.log('download images success:');
       console.log(res.data);
+      setIsDownloading(false);
     });
   };
 
@@ -196,7 +199,7 @@ const Settings = () => {
                     size="L"
                     disabled={isSaving || (!settings.longLivedAccessToken &&
                     !settings.shortLivedAccessToken)}
-                    loading={isSaving}
+                    loading={isDownloading}
                     variant="primary"
                   >
                     Download Images
