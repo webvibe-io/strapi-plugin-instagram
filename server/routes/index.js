@@ -5,16 +5,6 @@ module.exports = [
     handler: 'instaConfig.index',
     config: {
       policies: [],
-      auth: false,
-    },
-  },
-  {
-    method: 'GET',
-    path: '/count',
-    handler: 'instaConfig.count',
-    config: {
-      policies: [],
-      auth: false,
     },
   },
   {
@@ -23,7 +13,6 @@ module.exports = [
     handler: 'instaConfig.getSettings',
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -32,7 +21,6 @@ module.exports = [
     handler: 'instaConfig.setSettings',
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -41,7 +29,6 @@ module.exports = [
     handler: 'instagramToken.getShortLivedToken',
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -50,7 +37,6 @@ module.exports = [
     handler: 'instagramBasicApi.downloadImages',
     config: {
       policies: [],
-      auth: false,
     },
   },
 ];
