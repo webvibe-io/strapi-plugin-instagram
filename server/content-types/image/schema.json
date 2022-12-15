@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "image",
+  "info": {
+    "singularName": "image",
+    "pluralName": "images",
+    "displayName": "Instagram Images",
+    "description": "Instagram images downloaded with Basic API"
+  },
+  "options": {
+    "draftAndPublish": true,
+    "comment": "Images downloaded from Instagram"
+  },
+  "attributes": {
+    "instagramId": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "originalUrl": {
+      "type": "string"
+    },
+    "mediaId": {
+      "type": "integer"
+    },
+    "timestamp": {
+      "type": "datetime"
+    },
+    "caption": {
+      "type": "string"
+    }
+  }
+}
