@@ -1,7 +1,7 @@
 'use strict';
 
-const image = require('./image');
+const instaimage = require('./image');
 
 module.exports = {
-    image,
+    instaimage,
 };

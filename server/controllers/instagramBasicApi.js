@@ -12,4 +12,15 @@ module.exports = ({ strapi }) => ({
       ctx.throw(500, err);
     }
   },
+  async getImages(ctx) {
+    const { body } = ctx.request;
+    try {
+      ctx.body = await strapi
+        .plugin('instagram')
+        .service('instagramBasicApi')
+        .getImages();
+    } catch (err) {
+      ctx.throw(500, err);
+    }
+  },
 });

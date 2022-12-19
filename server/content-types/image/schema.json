@@ -1,15 +1,23 @@
 {
   "kind": "collectionType",
-  "collectionName": "image",
+  "collectionName": "instagram_images",
   "info": {
-    "singularName": "image",
-    "pluralName": "images",
+    "singularName": "instaimage",
+    "pluralName": "instaimages",
     "displayName": "Instagram Images",
     "description": "Instagram images downloaded with Basic API"
   },
   "options": {
     "draftAndPublish": true,
     "comment": "Images downloaded from Instagram"
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    }
   },
   "attributes": {
     "instagramId": {

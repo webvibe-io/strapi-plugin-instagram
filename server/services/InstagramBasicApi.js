@@ -7,6 +7,8 @@ const fetchInstagram = require('../utils/fetchInstagram');
 const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp';
 const media_fields = `${album_fields},caption`;
 
+const dbImageName = 'plugin::instagram.instaimage';
+
 module.exports = ({ strapi }) => ({
   async downloadAlbum(parent, token) {
     const album = await fetchInstagram.callInstagramGraph(
@@ -72,7 +74,7 @@ module.exports = ({ strapi }) => ({
   },
 
   async isImageExists(image) {
-    const entry = await strapi.db.query('plugin::instagram.image').findOne({
+    const entry = await strapi.db.query(dbImageName).findOne({
       where: { instagramId: image.id },
     });
     return (entry != null);
@@ -81,7 +83,7 @@ module.exports = ({ strapi }) => ({
   async insertImagesToDatabase(images) {
     for (let image of images) {
       if (!await this.isImageExists(image)) {
-        const entry = await strapi.db.query('plugin::instagram.image').create({
+        const entry = await strapi.db.query(dbImageName).create({
           data: {
             instagramId: image.id,
             originalUrl: image.url,
@@ -92,5 +94,13 @@ module.exports = ({ strapi }) => ({
         });
       }
     }
+  },
+
+  async getImages() {
+    const result = await strapi.db.query(dbImageName).findMany({
+      orderBy: {instagramId: 'desc'},
+      limit: 10,
+    });
+    return result;
   },
 });
