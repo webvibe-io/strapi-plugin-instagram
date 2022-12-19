@@ -9,6 +9,10 @@
     "kind": "plugin",
     "displayName": "Instagram"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webvibe-io/strapi-plugin-instagram.git"
+  },
   "peerDependencies": {
     "@strapi/strapi": ">=4.3.8"
   },
