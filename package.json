@@ -1,5 +1,5 @@
 {
-  "name": "instagram",
+  "name": "@webvibe-io/strapi-plugin-instagram",
   "version": "1.0.0",
   "private": "false",
   "description": "Instagram plugin for Strapi headless CMS",
