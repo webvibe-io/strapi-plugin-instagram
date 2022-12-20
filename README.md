@@ -1,5 +1,5 @@
 # Strapi instagram plugin
-![instagram](https://user-images.githubusercontent.com/531009/207857191-401e7a3f-a2ea-4efa-a94a-8e5ee54dfc59.png)
+![strapi-plugin-instagram](https://user-images.githubusercontent.com/531009/208746882-a3e581d9-0970-41ec-93de-bf482261b7ae.png)
 
 This is Plugin for [Strapi headless CMS](https://strapi.io/) to download image links (or images in Pro version) from Instagram
 
