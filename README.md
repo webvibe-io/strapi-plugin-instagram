@@ -6,6 +6,7 @@ This is a Plugin for [Strapi headless CMS](https://strapi.io/) to download image
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [API](#api)
 - [Troubleshooting](#troubleshooting)
 - [Security](#security)
 
@@ -36,6 +37,7 @@ __Important! Instagram authentication will not work on `localhost` due API need 
 If you don't have a public domain (in a developer environment for example) you will need to create one. I prefer [ngrok](https://ngrok.com/) for this but you can use any other solution.
 
 
+### Configuration steps
 After you have a public domain please follow this steps:
 1. You can find configuration screen in Strapi at `Settings` menu. Open it and leave it. You will need it to fill App Id and Secret.
 2. Create an App at [Meta Developer tools platform](https://developers.facebook.com/apps/)
@@ -68,7 +70,7 @@ If you have any error in the authentication process or the plugin don't have sho
 - You can't download images when there is no token. Please check your tokens on the configuration screen!
 
 #### Issues
-If you think you found a problem feel free to [open an Issue at Github](https://github.com/webvibe-io/strapi-plugin-instagram/issues)
+If you think you found a problem or bug feel free to [open an Issue at Github](https://github.com/webvibe-io/strapi-plugin-instagram/issues)
 
 
 ## Security
