@@ -4,28 +4,9 @@
  *  router
  */
 
-const { createCoreRouter } = require('@strapi/strapi').factories;
-
-//module.exports = createCoreRouter('plugin::instagram.instagramBasicApi');
-//module.exports = createCoreRouter('plugin::instagram.insta-config');
-//module.exports = createCoreRouter('api::instagram.instagram');
-
-/*module.exports = {
-    type: 'content-api',
-    routes: [
-      {
-        method: 'GET',
-        path: '/images',
-        handler: 'instagramBasicApi.getImages',
-        config: {
-          auth: false,
-        },
-      },
-    ],
-  };*/
-  module.exports = {
-    'type': 'admin',
-    'routes': [
+module.exports = {
+  type: 'admin',
+  routes: [
     {
       method: 'GET',
       path: '/settings',
@@ -59,4 +40,4 @@ const { createCoreRouter } = require('@strapi/strapi').factories;
       },
     },
   ],
-}
+};
