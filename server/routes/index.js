@@ -1,5 +1,5 @@
 const instagram = require('./instagram');
-const instaimage = require('./instaImages');
+const instaimage = require('./instaimage');
 
 module.exports = {
   instagram,
