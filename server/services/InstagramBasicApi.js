@@ -95,12 +95,4 @@ module.exports = ({ strapi }) => ({
       }
     }
   },
-
-  async getImages() {
-    const result = await strapi.db.query(dbImageName).findMany({
-      orderBy: {instagramId: 'desc'},
-      limit: 10,
-    });
-    return result;
-  },
 });
