@@ -11,8 +11,12 @@ module.exports = {
     {
       method: 'GET',
       path: '/images',
-      handler: 'instaimage.find',
-      config: {},
+      // If I use Strapi generated controller I can't refresh instagram feed (new images) 
+      //handler: 'instaimage.find',
+      handler: 'instagramBasicApi.getImages',
+      config: {
+        auth: false,
+      },
     },
   ],
 };
