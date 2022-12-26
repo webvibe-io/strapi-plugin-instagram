@@ -17,8 +17,8 @@ module.exports = ({ strapi }) => ({
     try {
       ctx.body = await strapi
         .plugin('instagram')
-        .service('instagramBasicApi')
-        .getImages();
+        .service('instaimage')
+        .find(body);
     } catch (err) {
       ctx.throw(500, err);
     }
