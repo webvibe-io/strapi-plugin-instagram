@@ -61,6 +61,11 @@ http://localhost:1337/api/instagram/images
 ```
 This is a standard [Strapi REST API](https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/rest-api.html#endpoints) so you can use any feature like filter.
 
+___Response___
+```
+{"results":[],"pagination":{"page":1,"pageSize":25,"pageCount":0,"total":0}}
+```
+
 ## Troubleshooting
 If you have any error in the authentication process or the plugin don't have short or long lived token you should check `Last Instagram Api response` and developer tool's console for error messages.
 
