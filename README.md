@@ -66,6 +66,9 @@ ___Response___
 {"results":[],"pagination":{"page":1,"pageSize":25,"pageCount":0,"total":0}}
 ```
 
+___Refresh token___
+When you are getting images through API the plugin check if the token is more than 10 days old. If older refresh Long Lived token automaticaly.
+
 ## Troubleshooting
 If you have any error in the authentication process or the plugin don't have short or long lived token you should check `Last Instagram Api response` and developer tool's console for error messages.
 
