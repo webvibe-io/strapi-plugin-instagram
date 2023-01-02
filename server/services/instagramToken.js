@@ -71,7 +71,7 @@ module.exports = ({ strapi }) => ({
     const settings = await getPluginSettings();
     if (settings.longLivedAccessToken === undefined) {
       return {
-        error: "Instagram refresh token error, there is no long lived token!",
+        error: "Instagram refreshLongLivedToken() error, there is no long lived token!",
         status: 400,
       };
     }
@@ -96,4 +96,31 @@ module.exports = ({ strapi }) => ({
     await setPluginSettings(settings);
     return apiResult;
   },
+
+  async checkTokenExpiration() {
+    const settings = await getPluginSettings();
+    if (settings.longLivedAccessToken === undefined) {
+      return {
+        error: "Instagram checkTokenExpiration() error, there is no long lived token!",
+        status: 400,
+      };
+    }
+    
+    const msInDay = 1000 * 60 * 60 * 24;
+    const dateNow = new Date();
+    const dateExpiration = new Date(settings.expiresAt);
+    const dateRefreshed = new Date(settings.refreshTime);
+    const diffExpiration = Math.ceil(Math.abs(dateNow - dateExpiration) / msInDay);
+    const diffRefreshed = Math.ceil(Math.abs(dateNow - dateRefreshed) / msInDay);
+    
+    // Refresh if token refreshed more than 10 days or 
+    // expiration closer than 10 days.
+    // Currently expiration days is 60 at the API so
+    // refresh time will be true but I check it anyway (for safety)
+    if (diffExpiration >= 10 && diffRefreshed <= 10) {
+      return { 'refreshed': false };
+    } else {
+      return this.refreshLongLivedToken();
+    }
+  }
 });

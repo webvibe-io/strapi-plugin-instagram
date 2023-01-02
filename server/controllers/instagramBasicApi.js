@@ -17,6 +17,10 @@ module.exports = ({ strapi }) => ({
     try {
       ctx.body = await strapi
         .plugin('instagram')
+        .service('instagramToken')
+        .checkTokenExpiration();
+      ctx.body = await strapi
+        .plugin('instagram')
         .service('instaimage')
         .find(body);
     } catch (err) {
