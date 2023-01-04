@@ -11,7 +11,7 @@ This is a Plugin for [Strapi headless CMS](https://strapi.io/) to download image
 - [Security](#security)
 
 ## Features
-- Download last 20 image URLs from Instagram
+- Download last 20 image URLs from Instagram in every 10 minutes (on API call)
 - Can download images from Carousel Albums
 - Instagram Basic Authentication Implemented with long lived token
 - Every config parameter is editable on Strapi Configuration Screen
@@ -66,11 +66,17 @@ ___Response___
 {"results":[],"pagination":{"page":1,"pageSize":25,"pageCount":0,"total":0}}
 ```
 
+___Download new images___
+When making an API call, the plugin checks for new images every 10 minutes and download URLs.
+
 ___Refresh token___
-When you are getting images through API the plugin check if the token is more than 10 days old. If older refresh Long Lived token automaticaly.
+When receiving images via API, the plugin checks if the token is older than 10 days. If it is older, then automatically update the Long Lived token.
 
 ## Troubleshooting
 If you have any error in the authentication process or the plugin don't have short or long lived token you should check `Last Instagram Api response` and developer tool's console for error messages.
+
+#### Known limitations
+- On _download images_ API call the plugin checks for new images in the background, so new images propably not appears in the first API call but the next one. On the very first API call with empty database the response will be empty until images downloaded in the background. __I think this is not a problem and you don't need to call the API twice in a row due new pictures will be there soon, maybe on the next request. Frontend user will not notice this process.__
 
 #### Most common errors
 - With wrong callback URLs Instagram can't forward the token to Strapi. Please check the URLs and check that your public domain is working properly!
