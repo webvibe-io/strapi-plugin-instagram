@@ -3,6 +3,7 @@
 const instagramSettings = require("../utils/settings");
 const { getPluginSettings, setPluginSettings } = instagramSettings;
 const fetchInstagram = require("../utils/fetchInstagram");
+const dateUtils = require("../utils/dateUtils");
 
 module.exports = ({ strapi }) => ({
   async getShortLivedToken(redirect_uri, code, state) {
@@ -105,22 +106,18 @@ module.exports = ({ strapi }) => ({
         status: 400,
       };
     }
-    
-    const msInDay = 1000 * 60 * 60 * 24;
-    const dateNow = new Date();
-    const dateExpiration = new Date(settings.expiresAt);
-    const dateRefreshed = new Date(settings.refreshTime);
-    const diffExpiration = Math.ceil(Math.abs(dateNow - dateExpiration) / msInDay);
-    const diffRefreshed = Math.ceil(Math.abs(dateNow - dateRefreshed) / msInDay);
+
+    const diffExpiration = dateUtils.dateDifferenceToNow(settings.expiresAt);
+    const diffRefreshed = dateUtils.dateDifferenceToNow(settings.refreshTime);
     
     // Refresh if token refreshed more than 10 days or 
     // expiration closer than 10 days.
     // Currently expiration days is 60 at the API so
-    // refresh time will be true but I check it anyway (for safety)
-    if (diffExpiration >= 10 && diffRefreshed <= 10) {
-      return { 'refreshed': false };
-    } else {
+    // refresh time will be true first but I check expiration anyway (for safety)
+    if (diffExpiration <= 10 || diffRefreshed >= 10) {
       return this.refreshLongLivedToken();
+    } else {
+      return { 'refreshed': false };
     }
   }
 });
