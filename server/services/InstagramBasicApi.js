@@ -47,8 +47,6 @@ module.exports = ({ strapi }) => ({
       };
     }
 
-    settings.lastDownloadTime = '2023-01-04T19:20:00';
-
     if (
       !force &&
       dateUtils.dateDifferenceToNow(
@@ -81,9 +79,9 @@ module.exports = ({ strapi }) => ({
         images = images.concat(album);
       }
     }
-    this.insertImagesToDatabase(images);
+    await this.insertImagesToDatabase(images);
     settings.lastDownloadTime = new Date();
-    setPluginSettings(settings);
+    await setPluginSettings(settings);
     return images;
   },
 
