@@ -32,7 +32,7 @@ module.exports = {
       },
     },
     {
-      method: 'GET',
+      method: 'POST',
       path: '/downloadImages',
       handler: 'instagramBasicApi.downloadImages',
       config: {
