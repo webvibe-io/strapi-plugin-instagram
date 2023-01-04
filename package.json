@@ -2,6 +2,7 @@
   "name": "@webvibe-io/strapi-plugin-instagram",
   "version": "1.1.0",
   "description": "Instagram plugin for Strapi headless CMS",
+  "keywords": ["strapi", "instagram", "plugin"],
   "strapi": {
     "name": "instagram",
     "description": "Instagram plugin for Strapi headless CMS",
