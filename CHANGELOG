@@ -18,7 +18,18 @@ straightforward as possible.
 ### Changed
  
 ### Fixed
+
+## [1.2.0] - 2023-01-05
  
+### Added
+- Refactor date functions into a new module
+- Download new images from Instagram when getImages API called (once in every 10 minutes)
+
+### Changed
+- downloadImages() admin API call from GET to POST
+ 
+### Fixed
+
 ## [1.1.0] - 2023-01-02
  
 ### Added
