@@ -84,7 +84,9 @@ const Settings = () => {
 
   const handleImageDownload = async () => {
     setIsDownloading(true);
-    instagramBasicApiRequest.downloadImages().then((res) => {
+    instagramBasicApiRequest.downloadImages({
+        'force': true
+    }).then((res) => {
       console.log('download images success:');
       console.log(res.data);
       setIsDownloading(false);
@@ -204,6 +206,14 @@ const Settings = () => {
                   >
                     Download Images
                   </Button>
+                </GridItem>
+                <GridItem col={12} s={12}>
+                  <TextInput
+                    label="Last image download time"
+                    onChange={() => {}}
+                    value={settings.lastDownloadTime}
+                    disabled
+                  />
                 </GridItem>
               </Grid>
             </Stack>

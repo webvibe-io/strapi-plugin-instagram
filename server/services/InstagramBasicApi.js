@@ -3,6 +3,7 @@
 const instagramSettings = require('../utils/settings');
 const { getPluginSettings, setPluginSettings } = instagramSettings;
 const fetchInstagram = require('../utils/fetchInstagram');
+const dateUtils = require('../utils/dateUtils');
 
 const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp';
 const media_fields = `${album_fields},caption`;
@@ -34,7 +35,7 @@ module.exports = ({ strapi }) => ({
     return media;
   },
 
-  async downloadImages() {
+  async downloadImages(force = false) {
     const settings = await getPluginSettings();
     const token =
       settings.shortLivedAccessToken || settings.longLivedAccessToken;
@@ -44,6 +45,16 @@ module.exports = ({ strapi }) => ({
         error: 'Instagram download images error, there is no token!',
         status: 400,
       };
+    }
+
+    if (
+      !force &&
+      dateUtils.dateDifferenceToNow(
+        settings.lastDownloadTime,
+        dateUtils.minute,
+      ) < 10
+    ) {
+      return { download: false };
     }
 
     const instagramMedia = await fetchInstagram.callInstagramGraph(
@@ -68,8 +79,9 @@ module.exports = ({ strapi }) => ({
         images = images.concat(album);
       }
     }
-    this.insertImagesToDatabase(images);
-
+    await this.insertImagesToDatabase(images);
+    settings.lastDownloadTime = new Date();
+    await setPluginSettings(settings);
     return images;
   },
 
@@ -77,12 +89,12 @@ module.exports = ({ strapi }) => ({
     const entry = await strapi.db.query(dbImageName).findOne({
       where: { instagramId: image.id },
     });
-    return (entry != null);
+    return entry != null;
   },
 
   async insertImagesToDatabase(images) {
     for (let image of images) {
-      if (!await this.isImageExists(image)) {
+      if (!(await this.isImageExists(image))) {
         const entry = await strapi.db.query(dbImageName).create({
           data: {
             instagramId: image.id,

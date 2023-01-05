@@ -7,7 +7,7 @@ module.exports = ({ strapi }) => ({
       ctx.body = await strapi
         .plugin('instagram')
         .service('instagramBasicApi')
-        .downloadImages();
+        .downloadImages(body.force);
     } catch (err) {
       ctx.throw(500, err);
     }
@@ -15,10 +15,17 @@ module.exports = ({ strapi }) => ({
   async getImages(ctx) {
     const { body } = ctx.request;
     try {
+      // Token refresh if necessary
       ctx.body = await strapi
         .plugin('instagram')
         .service('instagramToken')
         .checkTokenExpiration();
+      // Download new images if necessary
+      ctx.body = await strapi
+        .plugin('instagram')
+        .service('instagramBasicApi')
+        .downloadImages(false);
+      // Return images from database
       ctx.body = await strapi
         .plugin('instagram')
         .service('instaimage')
