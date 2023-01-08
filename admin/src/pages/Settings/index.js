@@ -16,6 +16,7 @@ import Information from '@strapi/icons/Information';
 import React, { useEffect, useState } from 'react';
 import instagramRequests from '../../api/instagram';
 import instagramBasicApiRequest from '../../api/instagramBasicApi';
+import PaypalDonate from '../../components/PaypalDonate';
 import pluginId from '../../pluginId';
 import generateAuthState from '../../utils/authState';
 
@@ -84,13 +85,15 @@ const Settings = () => {
 
   const handleImageDownload = async () => {
     setIsDownloading(true);
-    instagramBasicApiRequest.downloadImages({
-        'force': true
-    }).then((res) => {
-      console.log('download images success:');
-      console.log(res.data);
-      setIsDownloading(false);
-    });
+    instagramBasicApiRequest
+      .downloadImages({
+        force: true,
+      })
+      .then((res) => {
+        console.log('download images success:');
+        console.log(res.data);
+        setIsDownloading(false);
+      });
   };
 
   const canAuthenticate = () => {
@@ -192,6 +195,33 @@ const Settings = () => {
             marginTop={3}
           >
             <Stack spacing={3}>
+              <Typography variant="beta">
+                Toss A Coin To Your Witcher
+              </Typography>
+              <Typography>
+                I spent weeks developing and refining this plugin. If you use it
+                and like it, invite me for a coffee in exchange for my work!
+              </Typography>
+              <Grid gap={6}>
+                <GridItem col={12} s={12}>
+                  <Typography textAlign="center">
+                    <PaypalDonate />
+                  </Typography>
+                </GridItem>
+              </Grid>
+            </Stack>
+          </Box>
+          <Box
+            background="neutral0"
+            hasRadius
+            shadow="filterShadow"
+            paddingTop={6}
+            paddingBottom={6}
+            paddingLeft={7}
+            paddingRight={7}
+            marginTop={3}
+          >
+            <Stack spacing={3}>
               <Typography>General settings</Typography>
               <Grid gap={6}>
                 <GridItem col={12} s={12}>
@@ -199,10 +229,13 @@ const Settings = () => {
                     onClick={handleImageDownload}
                     startIcon={<Download />}
                     size="L"
-                    disabled={isSaving || (!settings.longLivedAccessToken &&
-                    !settings.shortLivedAccessToken)}
+                    disabled={
+                      isSaving ||
+                      (!settings.longLivedAccessToken &&
+                        !settings.shortLivedAccessToken)
+                    }
                     loading={isDownloading}
-                    variant="primary"
+                    variant="default"
                   >
                     Download Images
                   </Button>
@@ -210,6 +243,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Last image download time"
+                    name="last_image_download_time"
                     onChange={() => {}}
                     value={settings.lastDownloadTime}
                     disabled
@@ -419,6 +453,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Instagram User Id"
+                    name="instagram_user_id"
                     onChange={() => {}}
                     value={settings.userId}
                     disabled
@@ -427,6 +462,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Short lived token"
+                    name="short_lived_token"
                     onChange={() => {}}
                     value={settings.shortLivedAccessToken}
                     disabled
@@ -435,6 +471,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Long lived token"
+                    name="long_lived_token"
                     onChange={() => {}}
                     value={settings.longLivedAccessToken}
                     disabled
@@ -443,6 +480,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Long lived token expires in"
+                    name="long_lived_token_expires_in"
                     onChange={() => {}}
                     value={settings.expiresIn}
                     disabled
@@ -451,6 +489,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Last Instagram Api response"
+                    name="last_instagram_apir_response"
                     onChange={() => {}}
                     value={settings.lastApiResponse}
                     disabled
@@ -459,6 +498,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Token expires at"
+                    name="token_expires_at"
                     onChange={() => {}}
                     value={settings.expiresAt}
                     disabled
@@ -467,6 +507,7 @@ const Settings = () => {
                 <GridItem col={12} s={12}>
                   <TextInput
                     label="Last token refresh time"
+                    name="last_token_refresh_time"
                     onChange={() => {}}
                     value={settings.refreshTime}
                     disabled
