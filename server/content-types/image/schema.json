@@ -30,9 +30,7 @@
       "type": "text",
       "maxLength": 3000,
       "column": {
-        "args": [
-          6,1
-        ]
+        "type": "text"
       }
     },
     "mediaId": {
