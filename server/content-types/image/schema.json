@@ -27,7 +27,7 @@
       "required": true
     },
     "originalUrl": {
-      "type": "text",
+      "type": "string",
       "maxLength": 3000
     },
     "mediaId": {
