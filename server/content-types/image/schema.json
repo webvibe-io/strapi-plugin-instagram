@@ -27,8 +27,11 @@
       "required": true
     },
     "originalUrl": {
-      "type": "text",
-      "maxLength": 3000
+      "type": "string",
+      "maxLength": 3000,
+      "column": {
+        "maxLength": 3000
+      }
     },
     "mediaId": {
       "type": "integer"
