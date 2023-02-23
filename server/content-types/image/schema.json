@@ -41,7 +41,10 @@
     },
     "caption": {
       "type": "string",
-      "maxLength": 3000
+      "maxLength": 3000,
+      "column": {
+        "type": "text"
+      }
     }
   }
 }
