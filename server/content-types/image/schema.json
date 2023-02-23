@@ -22,13 +22,11 @@
   "attributes": {
     "instagramId": {
       "type": "string",
-      "maxLength": 3000,
       "unique": true,
       "required": true
     },
     "originalUrl": {
       "type": "string",
-      "maxLength": 3000,
       "column": {
         "type": "text"
       }
