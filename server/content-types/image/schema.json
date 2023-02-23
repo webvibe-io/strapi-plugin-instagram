@@ -22,11 +22,13 @@
   "attributes": {
     "instagramId": {
       "type": "string",
+      "maxLength": 3000,
       "unique": true,
       "required": true
     },
     "originalUrl": {
-      "type": "text"
+      "type": "text",
+      "maxLength": 3000
     },
     "mediaId": {
       "type": "integer"
@@ -35,7 +37,8 @@
       "type": "datetime"
     },
     "caption": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 3000
     }
   }
 }
