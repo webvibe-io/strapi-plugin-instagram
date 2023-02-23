@@ -27,11 +27,12 @@
       "required": true
     },
     "originalUrl": {
-      "type": "string",
+      "type": "text",
       "maxLength": 3000,
       "column": {
-        "unsigned": true,
-        "maxLength": 3000
+        "args": [
+          6,1
+        ]
       }
     },
     "mediaId": {
