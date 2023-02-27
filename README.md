@@ -80,6 +80,13 @@ If you have any error in the authentication process or the plugin don't have sho
 - If you don't change enything on the configuration screen you can't push `Save` button. Please cahange App Id or Secret to save changes!
 - You can't download images when there is no token. Please check your tokens on the configuration screen!
 
+#### Emojis in content causing errors
+In order for the database to save emoji's properly you should make sure the encoding of both the table & connection is set to `utf8mb4`. For the connection this can be done by adding the following line to your database configuration (in `/config/database.js`) in the connection configuration:
+
+```js
+charset: env('DATABASE_CHARSET', 'utf8mb4'),
+```
+
 #### Issues
 If you think you found a problem or bug feel free to [open an Issue at Github](https://github.com/webvibe-io/strapi-plugin-instagram/issues)
 
