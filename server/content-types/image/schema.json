@@ -27,7 +27,7 @@
     },
     "originalUrl": {
       "type": "string",
-      "maxLength": 3000,
+      "maxLength": 9999,
       "column": {
         "type": "text"
       }
@@ -40,7 +40,7 @@
     },
     "caption": {
       "type": "text",
-      "maxLength": 3000,
+      "maxLength": 9999,
       "column": {
         "type": "text"
       }
