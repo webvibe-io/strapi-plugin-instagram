@@ -28,14 +28,23 @@
     "originalUrl": {
       "type": "text"
     },
-    "mediaId": {
-      "type": "text"
-    },
     "timestamp": {
       "type": "datetime"
     },
     "caption": {
       "type": "string"
+    },
+    "permalink": {
+      "type": "text"
+    },
+    "mediaId": {
+      "type": "string"
+    },
+    "mediaType": {
+      "type": "string"
+    },
+    "thumbnailUrl": {
+      "type": "text"
     }
   }
 }
