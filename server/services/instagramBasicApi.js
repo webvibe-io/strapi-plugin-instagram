@@ -96,7 +96,18 @@ module.exports = ({ strapi }) => ({
 
   async insertImagesToDatabase(images) {
     for (let image of images) {
-      if (!(await this.isImageExists(image))) {
+      const imageExists = await this.isImageExists(image);
+
+      if (imageExists) {
+        // Update image url if already exists in order to prevent
+        // url to be invalid after a week
+        const entry = await strapi.db.query(dbImageName).update({
+          where: { instagramId: image.id },
+          data: {
+            originalUrl: image.url
+          }
+        });
+      } else {
         const entry = await strapi.db.query(dbImageName).create({
           data: {
             instagramId: image.id,
