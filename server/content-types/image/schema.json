@@ -29,7 +29,7 @@
       "type": "text"
     },
     "mediaId": {
-      "type": "integer"
+      "type": "text"
     },
     "timestamp": {
       "type": "datetime"

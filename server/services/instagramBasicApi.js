@@ -23,7 +23,7 @@ module.exports = ({ strapi }) => ({
     album.data.forEach((element) => {
       if (element.media_type == 'IMAGE') {
         media.push({
-          parent: parent.id,
+          mediaId: parent.id,
           id: element.id,
           url: element.media_url,
           timestamp: element.timestamp,
@@ -69,6 +69,7 @@ module.exports = ({ strapi }) => ({
     for (let element of instagramMedia.data) {
       if (element.media_type == 'IMAGE') {
         images.push({
+          mediaId: element.id,
           id: element.id,
           url: element.media_url,
           timestamp: element.timestamp,
@@ -111,6 +112,7 @@ module.exports = ({ strapi }) => ({
         const entry = await strapi.db.query(dbImageName).create({
           data: {
             instagramId: image.id,
+            mediaId: image.mediaId,
             originalUrl: image.url,
             timestamp: image.timestamp,
             caption: image.caption,
