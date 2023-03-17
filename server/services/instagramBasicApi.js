@@ -5,7 +5,7 @@ const { getPluginSettings, setPluginSettings } = instagramSettings;
 const fetchInstagram = require('../utils/fetchInstagram');
 const dateUtils = require('../utils/dateUtils');
 
-const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp';
+const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp,permalink';
 const media_fields = `${album_fields},caption`;
 
 const dbImageName = 'plugin::instagram.instaimage';
@@ -29,6 +29,7 @@ module.exports = ({ strapi }) => ({
           timestamp: element.timestamp,
           caption: parent.caption,
           media_type: element.media_type,
+          permalink: element.permalink
         });
       }
     });
@@ -73,6 +74,7 @@ module.exports = ({ strapi }) => ({
           timestamp: element.timestamp,
           caption: element.caption,
           media_type: element.media_type,
+          permalink: element.permalink
         });
       } else if (element.media_type == 'CAROUSEL_ALBUM') {
         const album = await this.downloadAlbum(element, token);
@@ -102,6 +104,7 @@ module.exports = ({ strapi }) => ({
             timestamp: image.timestamp,
             caption: image.caption,
             publishedAt: new Date(),
+            permalink: image.permalink
           },
         });
       }
