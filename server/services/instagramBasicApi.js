@@ -21,15 +21,16 @@ module.exports = ({ strapi }) => ({
     );
     const media = [];
     album.data.forEach((element) => {
-      if (element.media_type == 'IMAGE') {
+      if (element.media_type === 'IMAGE' || element.media_type === 'VIDEO') {
         media.push({
           mediaId: parent.id,
           id: element.id,
           url: element.media_url,
           timestamp: element.timestamp,
           caption: parent.caption,
-          media_type: element.media_type,
-          permalink: element.permalink
+          mediaType: element.media_type,
+          permalink: element.permalink,
+          thumbnailUrl: element.media_type === 'VIDEO' ? element.thumbnail_url : null
         });
       }
     });
@@ -67,17 +68,18 @@ module.exports = ({ strapi }) => ({
     );
     let images = [];
     for (let element of instagramMedia.data) {
-      if (element.media_type == 'IMAGE') {
+      if (element.media_type === 'IMAGE' || element.media_type === 'VIDEO') {
         images.push({
           mediaId: element.id,
           id: element.id,
           url: element.media_url,
           timestamp: element.timestamp,
           caption: element.caption,
-          media_type: element.media_type,
-          permalink: element.permalink
+          mediaType: element.media_type,
+          permalink: element.permalink,
+          thumbnailUrl: element.media_type === 'VIDEO' ? element.thumbnail_url : null
         });
-      } else if (element.media_type == 'CAROUSEL_ALBUM') {
+      } else if (element.media_type === 'CAROUSEL_ALBUM') {
         const album = await this.downloadAlbum(element, token);
         images = images.concat(album);
       }
@@ -105,7 +107,8 @@ module.exports = ({ strapi }) => ({
         const entry = await strapi.db.query(dbImageName).update({
           where: { instagramId: image.id },
           data: {
-            originalUrl: image.url
+            originalUrl: image.url,
+            thumbnailUrl: image.thumbnailUrl
           }
         });
       } else {
@@ -117,7 +120,9 @@ module.exports = ({ strapi }) => ({
             timestamp: image.timestamp,
             caption: image.caption,
             publishedAt: new Date(),
-            permalink: image.permalink
+            permalink: image.permalink,
+            thumbnailUrl: image.thumbnailUrl,
+            mediaType: image.mediaType
           },
         });
       }
