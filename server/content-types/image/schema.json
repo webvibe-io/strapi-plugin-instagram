@@ -26,7 +26,11 @@
       "required": true
     },
     "originalUrl": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 9999,
+      "column": {
+        "type": "text"
+      }
     },
     "mediaId": {
       "type": "integer"
@@ -35,7 +39,11 @@
       "type": "datetime"
     },
     "caption": {
-      "type": "string"
+      "type": "text",
+      "maxLength": 9999,
+      "column": {
+        "type": "text"
+      }
     }
   }
 }
