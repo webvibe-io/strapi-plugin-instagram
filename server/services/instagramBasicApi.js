@@ -64,6 +64,20 @@ module.exports = ({ strapi }) => ({
         fields: media_fields,
       },
     );
+
+    if (instagramMedia.error !== undefined) {
+      if (instagramMedia.error.code == 190 && instagramMedia.error.type == "OAuthException") {
+        settings.shortLivedAccessToken = undefined;
+        settings.longLivedAccessToken = undefined;
+        settings.lastApiResponse = JSON.stringify(instagramMedia);
+        await setPluginSettings(settings);
+      };  
+      return { 
+        download: false,
+        error: instagramMedia.error
+      };
+    }
+
     let images = [];
     for (let element of instagramMedia.data) {
       if (element.media_type == 'IMAGE') {

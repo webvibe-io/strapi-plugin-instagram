@@ -1,4 +1,5 @@
 // admin/src/pages/Settings/index.js
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from '@strapi/design-system/Alert';
 import { Box } from '@strapi/design-system/Box';
 import { Button } from '@strapi/design-system/Button';
@@ -16,7 +17,6 @@ import Information from '@strapi/icons/Information';
 import React, { useEffect, useState } from 'react';
 import instagramRequests from '../../api/instagram';
 import instagramBasicApiRequest from '../../api/instagramBasicApi';
-import PaypalDonate from '../../components/PaypalDonate';
 import pluginId from '../../pluginId';
 import generateAuthState from '../../utils/authState';
 
@@ -92,6 +92,15 @@ const Settings = () => {
       .then((res) => {
         console.log('download images success:');
         console.log(res.data);
+
+        if (res.data.error !== undefined) {
+          toggleNotification({
+            type: 'warning',
+            message: res.data.error.message,
+          });
+          
+        }
+        getSettings();
         setIsDownloading(false);
       });
   };
@@ -113,6 +122,10 @@ const Settings = () => {
       settings.state,
     );
     setIsAuth(false);
+  };
+
+  const handleDonate = async () => {
+    if (typeof window !== 'undefined') window.open('https://www.buymeacoffee.com/ptrkps', '_blank');
   };
 
   const handleSubmit = async () => {
@@ -200,13 +213,19 @@ const Settings = () => {
               </Typography>
               <Typography>
                 I spent weeks developing and refining this plugin. If you use it
-                and like it, invite me for a coffee in exchange for my work!
+                and like it, invite me for a slice of pizza in exchange for my
+                work!
               </Typography>
               <Grid gap={6}>
                 <GridItem col={12} s={12}>
-                  <Typography textAlign="center">
-                    <PaypalDonate />
-                  </Typography>
+                  <Button
+                    onClick={handleDonate}
+                    startIcon={<FontAwesomeIcon icon="pizza-slice" />}
+                    size="L"
+                    variant="primary"
+                  >
+                    Buy me a pizza
+                  </Button>
                 </GridItem>
               </Grid>
             </Stack>
