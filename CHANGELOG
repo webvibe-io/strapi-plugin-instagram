@@ -19,6 +19,57 @@ straightforward as possible.
  
 ### Fixed
 
+## [1.2.5] - 2023-01-05
+ 
+### Added
+- Handle token expiration. Delete old tokens and force new authentication.
+
+### Changed
+- Database column text type change in PR #20 by @ozireh
+- PR #19 Update readme with notice of setting encoding by @SvenWesterlaken 
+- PR #16 change original url type by @ozireh
+
+### Fixed
+- Change PayPal donate to `buymeacoffee`
+
+## [1.2.4] - 2023-01-05
+ 
+### Added
+
+### Changed
+ 
+### Fixed
+- Issue #14 Error during downloading images thanks for @ozireh
+
+
+## [1.2.3] - 2023-01-05
+ 
+### Added
+
+### Changed
+ 
+### Fixed
+- Issue #11 Can't even start Strapi after installing plugin
+- Issue #12 Cannot find module './instagramBasicApi' in production (ubuntu)
+
+## [1.2.2] - 2023-01-05
+
+### Added
+- Show Paypal Donate button on Settings screen
+
+### Changed
+ 
+### Fixed
+
+## [1.2.1] - 2023-01-05
+ 
+### Added
+- Download new images from Instagram in every 10 minutes
+
+### Changed
+ 
+### Fixed
+
 ## [1.2.0] - 2023-01-05
  
 ### Added
