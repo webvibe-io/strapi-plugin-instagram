@@ -92,6 +92,15 @@ const Settings = () => {
       .then((res) => {
         console.log('download images success:');
         console.log(res.data);
+
+        if (res.data.error !== undefined) {
+          toggleNotification({
+            type: 'warning',
+            message: res.data.error.message,
+          });
+          
+        }
+        getSettings();
         setIsDownloading(false);
       });
   };
