@@ -7,6 +7,7 @@ import { ContentLayout, HeaderLayout } from '@strapi/design-system/Layout';
 import { Link } from '@strapi/design-system/Link';
 import { Stack } from '@strapi/design-system/Stack';
 import { TextInput } from '@strapi/design-system/TextInput';
+import { Checkbox } from '@strapi/design-system/Checkbox';
 import { ToggleInput } from '@strapi/design-system/ToggleInput';
 import { Tooltip } from '@strapi/design-system/Tooltip';
 import { Typography } from '@strapi/design-system/Typography';
@@ -29,6 +30,7 @@ const Settings = () => {
   const [isDevAlertShow, setDevAlertShow] = useState(true);
   const [instagram_app_id, setInstagramAppId] = useState();
   const [instagram_app_secret, setInstagramAppSecret] = useState();
+  const [instagram_allow_videos, setInstagramAllowVideos] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
@@ -42,6 +44,7 @@ const Settings = () => {
       setIsLoading(false);
     });
   };
+
   const checkAuthResponse = async () => {
     if (window.location.pathname.split('/').pop() == 'auth') {
       const urlSearchParameters = new URLSearchParams(window.location.search);
@@ -81,10 +84,12 @@ const Settings = () => {
   useEffect(() => {
     setInstagramAppId(settings.instagram_app_id);
     setInstagramAppSecret(settings.instagram_app_secret);
+    setInstagramAllowVideos(settings.instagram_allow_videos);
   }, [settings]);
 
   const handleImageDownload = async () => {
     setIsDownloading(true);
+
     instagramBasicApiRequest
       .downloadImages({
         force: true,
@@ -101,7 +106,8 @@ const Settings = () => {
       instagram_app_id != '' &&
       instagram_app_secret != '' &&
       instagram_app_id == settings.instagram_app_id &&
-      instagram_app_secret == settings.instagram_app_secret
+      instagram_app_secret == settings.instagram_app_secret &&
+      instagram_allow_videos == settings.instagram_allow_videos
     );
   };
 
@@ -121,6 +127,7 @@ const Settings = () => {
       instagram_app_id: instagram_app_id,
       instagram_app_secret: instagram_app_secret,
       state: generateAuthState(),
+      instagram_allow_videos: instagram_allow_videos || false
     });
 
     setSettings(res.data);
@@ -239,6 +246,15 @@ const Settings = () => {
                   >
                     Download Images
                   </Button>
+                </GridItem>
+                <GridItem col={12} s={12}>
+                  <Checkbox
+                    value={instagram_allow_videos}
+                    onChange={() => setInstagramAllowVideos(!instagram_allow_videos)}
+                    hint="This will allow you to save videos (including reels) with their thumbnails into the database."
+                  >
+                    Include videos in download
+                  </Checkbox>
                 </GridItem>
                 <GridItem col={12} s={12}>
                   <TextInput
