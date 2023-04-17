@@ -26,13 +26,21 @@
       "required": true
     },
     "originalUrl": {
-      "type": "text"
+      "type": "string",
+      "maxLength": 9999,
+      "column": {
+        "type": "text"
+      }
     },
     "timestamp": {
       "type": "datetime"
     },
     "caption": {
-      "type": "string"
+      "type": "text"
+      "maxLength": 9999,
+      "column": {
+        "type": "text"
+      }
     },
     "permalink": {
       "type": "text"
