@@ -21,7 +21,7 @@ module.exports = ({ strapi }) => ({
     );
     const media = [];
     album.data.forEach((element) => {
-      if (element.media_type === 'IMAGE' || element.media_type === 'VIDEO') {
+      if (element.media_type === 'IMAGE' || (element.media_type === 'VIDEO' && settings.instagram_allow_videos)) {
         media.push({
           mediaId: parent.id,
           id: element.id,
@@ -68,7 +68,7 @@ module.exports = ({ strapi }) => ({
     );
     let images = [];
     for (let element of instagramMedia.data) {
-      if (element.media_type === 'IMAGE' || element.media_type === 'VIDEO') {
+      if (element.media_type === 'IMAGE' || (element.media_type === 'VIDEO' && settings.instagram_allow_videos)) {
         images.push({
           mediaId: element.id,
           id: element.id,
