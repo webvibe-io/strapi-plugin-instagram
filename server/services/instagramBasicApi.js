@@ -5,13 +5,15 @@ const { getPluginSettings, setPluginSettings } = instagramSettings;
 const fetchInstagram = require('../utils/fetchInstagram');
 const dateUtils = require('../utils/dateUtils');
 
-const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp';
+const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp,permalink';
 const media_fields = `${album_fields},caption`;
 
 const dbImageName = 'plugin::instagram.instaimage';
 
 module.exports = ({ strapi }) => ({
   async downloadAlbum(parent, token) {
+    const settings = await getPluginSettings();
+
     const album = await fetchInstagram.callInstagramGraph(
       `/${parent.id}/children`,
       {
@@ -21,14 +23,16 @@ module.exports = ({ strapi }) => ({
     );
     const media = [];
     album.data.forEach((element) => {
-      if (element.media_type == 'IMAGE') {
+      if (element.media_type === 'IMAGE' || (element.media_type === 'VIDEO' && settings.instagram_allow_videos)) {
         media.push({
-          parent: parent.id,
+          mediaId: parent.id,
           id: element.id,
           url: element.media_url,
           timestamp: element.timestamp,
           caption: parent.caption,
-          media_type: element.media_type,
+          mediaType: element.media_type,
+          permalink: element.permalink,
+          thumbnailUrl: element.media_type === 'VIDEO' ? element.thumbnail_url : null
         });
       }
     });
@@ -80,15 +84,18 @@ module.exports = ({ strapi }) => ({
 
     let images = [];
     for (let element of instagramMedia.data) {
-      if (element.media_type == 'IMAGE') {
+      if (element.media_type === 'IMAGE' || (element.media_type === 'VIDEO' && settings.instagram_allow_videos)) {
         images.push({
+          mediaId: element.id,
           id: element.id,
           url: element.media_url,
           timestamp: element.timestamp,
           caption: element.caption,
-          media_type: element.media_type,
+          mediaType: element.media_type,
+          permalink: element.permalink,
+          thumbnailUrl: element.media_type === 'VIDEO' ? element.thumbnail_url : null
         });
-      } else if (element.media_type == 'CAROUSEL_ALBUM') {
+      } else if (element.media_type === 'CAROUSEL_ALBUM') {
         const album = await this.downloadAlbum(element, token);
         images = images.concat(album);
       }
@@ -108,14 +115,30 @@ module.exports = ({ strapi }) => ({
 
   async insertImagesToDatabase(images) {
     for (let image of images) {
-      if (!(await this.isImageExists(image))) {
+      const imageExists = await this.isImageExists(image);
+
+      if (imageExists) {
+        // Update image url if already exists in order to prevent
+        // url to be invalid after a week
+        const entry = await strapi.db.query(dbImageName).update({
+          where: { instagramId: image.id },
+          data: {
+            originalUrl: image.url,
+            thumbnailUrl: image.thumbnailUrl
+          }
+        });
+      } else {
         const entry = await strapi.db.query(dbImageName).create({
           data: {
             instagramId: image.id,
+            mediaId: image.mediaId,
             originalUrl: image.url,
             timestamp: image.timestamp,
             caption: image.caption,
             publishedAt: new Date(),
+            permalink: image.permalink,
+            thumbnailUrl: image.thumbnailUrl,
+            mediaType: image.mediaType
           },
         });
       }
