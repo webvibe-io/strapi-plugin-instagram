@@ -13,7 +13,10 @@ module.exports = ({ strapi }) => ({
     }
   },
   async getImages(ctx) {
-    const { body } = ctx.request;
+    const { body, query, method } = ctx.request;
+
+    const params = method === 'GET' ? query : body;
+
     try {
       // Token refresh if necessary
       ctx.body = await strapi
@@ -29,7 +32,7 @@ module.exports = ({ strapi }) => ({
       ctx.body = await strapi
         .plugin('instagram')
         .service('instaimage')
-        .find(body);
+        .find(params);
     } catch (err) {
       ctx.throw(500, err);
     }

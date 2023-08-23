@@ -32,9 +32,6 @@
         "type": "text"
       }
     },
-    "mediaId": {
-      "type": "integer"
-    },
     "timestamp": {
       "type": "datetime"
     },
@@ -44,6 +41,18 @@
       "column": {
         "type": "text"
       }
+    },
+    "permalink": {
+      "type": "text"
+    },
+    "mediaId": {
+      "type": "string"
+    },
+    "mediaType": {
+      "type": "string"
+    },
+    "thumbnailUrl": {
+      "type": "text"
     }
   }
 }
